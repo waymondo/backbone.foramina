@@ -30,10 +30,12 @@ _.extend Backbone.View.prototype,
       @children[name].undelegateEvents()
     @children[name] = new view(_.extend parent: @, opts).render()
 
-
 # router view handling
 _.extend Backbone.Router.prototype,
 
   to: (viewClass, options = {}) ->
     @_view.clean() if @_view?
     @_view = new viewClass(options).render()
+
+  back: ->
+    Backbone.history.history.back()
