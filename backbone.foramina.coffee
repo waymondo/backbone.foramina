@@ -19,9 +19,9 @@ _.extend Backbone.Model.prototype,
     , @
 
   isEmpty: (attr, opts={}) ->
-    # return error if no attr
+    # TODO return error if no attr
     (_.isString(val = @get(attr)) and !val.trim().length) or _.isEmpty @get(attr)
-    # also add sanitize option
+    # TODO also add sanitize option to strip html tags
 
   toJSON: (opts = {}) ->
     if opts.serialize is true and @serialize.length
@@ -74,10 +74,12 @@ _.extend Backbone.View.prototype,
       @children[name].undelegateEvents()
     options = _.extend parent: @, el: @el, opts
     view = new view(options).render()
-    if @children[name]?
-      @children[name].push view
-    else
-      @children[name] = [view]
+    @children[name] = new view(options).render()
+    # TODO - handle arrays of subviews
+    # if @children[name]?
+    #   @children[name].push view
+    # else
+    #   @children[name] = [view]
 
 
 _.extend Backbone.Router.prototype,
